@@ -1,3 +1,5 @@
+![Foundry Badge](https://img.shields.io/badge/Foundry-0.7.9-informational)
+
 # DnD5e-WildShape
 
 <!--- Downloads @ Latest Badge -->
@@ -11,8 +13,6 @@
 <!--- C'est le lien du manifest, si besoin par la suite -->
 <!--- https://github.com/MisterHims/DnD5e-WildShape/releases/download/0.1.4-alpha/module.json -->
 
-![Foundry Badge](https://img.shields.io/badge/Foundry-0.7.9-informational)
-
 * **Author**: MisterHims
 * **Special thanks to**: tposney, Ikabodo, Archer, Crymic, Kandashi and many others :)
 * **Version**: 0.1.3 Alpha
@@ -22,9 +22,21 @@
 * **Macro(s) Requirement(s)**: [WildShape Effect Macro](https://github.com/MisterHims/DnD5e-WildShape/blob/main/macros/WildShape%20Effect%20Macro.js)
 * **Langage(s)**: *[EN] (current)*
 
-## IMPORTANT
+## Known issue/Limitation
 
-**MODULE VERSION NOT YET FUNCTIONAL!**
+## Installation
+
+It's always easiest to install modules from the in game add-on browser.
+
+To install this module manually:
+1.  Inside the Foundry "Configuration and Setup" screen, click "Add-on Modules"
+2.  Click "Install Module"
+3.  In the "Manifest URL" field, paste the following url:
+`https://raw.githubusercontent.com/MisterHims/DnD5e-WildShape/master/src/module.json`
+4.  Click 'Install' and wait for installation to complete
+5.  Don't forget to enable the module in game using the "Manage Module" button
+
+## Features 
 
 This repository has recently been replaced to succeed the DnD5e-WildShape macro. For now, the module version of this macro is still under construction, I invite you to go to the following page to access the macro:
 
@@ -481,3 +493,29 @@ A: There is currently no long term solution, although this issue is known and is
 ## Upcoming improvements
 
 I plan to improve this macro to make it a module. This will allow a much easier installation and will also allow you to quickly create and configure different polymorphs (choice of skills to keep, the name of the macro, the name of the effect, the size of the characters, the animation type, etc.)
+
+## [Changelog](./changelog.md)
+
+## Issues
+
+Any issues, bugs, or feature requests are always welcome to be reported directly to the [Issue Tracker](https://github.com/MisterHims/DnD5e-WildShape/issues ), or using the [Bug Reporter Module](https://foundryvtt.com/packages/bug-reporter/).
+
+## Credit
+
+Thanks to anyone who helps me with this code! I appreciate the user community's feedback on this project!
+
+- [TorchLight](https://github.com/PhilippeKr/TorchLight) ty to PhilippeKr
+
+## License
+This Foundry VTT module is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).
+This work is licensed under Foundry Virtual Tabletop [EULA - Limited License Agreement for module development v 0.1.6](http://foundryvtt.com/pages/license.html).
+
+## Acknowledgements
+
+Bootstrapped with League of Extraordinary FoundryVTT Developers  [foundry-vtt-types](https://github.com/League-of-Foundry-Developers/foundry-vtt-types).
+
+Mad props to the 'League of Extraordinary FoundryVTT Developers' community which helped me figure out a lot.
+
+
+
+
