@@ -1,0 +1,62 @@
+{
+	  "name": "foundryvtt-dnd5e-wildshape",
+	  "title": "FoundryVTT DnD5e WildShape",
+	  "description": "Allowing to polymorph his token with the animations available from Token Magic FX.",
+    "version": "1.0.0",
+    "author": "MisterHims, 4535992",
+    "type": "module",
+    "socket": true,
+    "includes": [
+      "./assets/**",
+      "./lang/**",
+      "./scripts/**",
+      "./styles/**",
+      "./templates/**",
+      "./module.json",
+      "./README.md",
+      "./icons/**",
+      "./packs/**"
+    ],
+    "media": [
+      {
+        "type": "icon",
+        "location": ""
+      },
+      {
+        "type": "cover",
+        "location": ""
+      },
+      {
+        "type": "screenshot",
+        "location": ""
+      }
+    ],
+    "languages": [
+      {
+          "lang": "en",
+          "name": "English",
+          "path": "lang/en.json"
+      }
+    ],
+    "scripts": [
+
+    ],
+    "esmodules": [
+        "foundryvtt-dnd5e-wildshape.js"
+    ],
+    "styles": [
+        "styles/foundryvtt-dnd5e-wildshape.css"
+    ],
+	  "url": "https://github.com/p4535992/DnD5e-WildShape",
+ 	  "manifest": "https://raw.githubusercontent.com/p4535992/DnD5e-WildShape/main/src/module.json",
+	  "download": "https://raw.githubusercontent.com/p4535992/DnD5e-WildShape/main/package/foundryvtt-arms-reach-v1.0.0.zip",
+    "minimumCoreVersion": "0.7.9",
+    "compatibleCoreVersion": "0.7.9",
+    "changelog": "https://raw.githubusercontent.com/p4535992/DnD5e-WildShape/main/changelog.md",
+    "bugs": "https://github.com/p4535992/DnD5e-WildShape/issues",
+    "allowBugReporter": true,
+    "dependencies": [
+
+    ]
+
+}

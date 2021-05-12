@@ -1,0 +1,61 @@
+.foundryvtt-dnd5e-wildshape-container {
+	display: flex; 
+	justify-content: flex-end; 
+	align-items:center; 
+	margin-right: 75px;
+	flex: 0 !important;
+}
+
+#token-hud .col.foundryvtt-dnd5e-wildshape-column-top {
+  height: calc(100% + 100px);
+  top: -170px;
+}
+
+#token-hud .col.foundryvtt-dnd5e-wildshape-column-top .control-icon:first-child {
+    margin-top: 8px;
+}
+
+#token-hud .col.foundryvtt-dnd5e-wildshape-column-bottom .control-icon:first-child {
+    margin-top: 8px;
+}
+
+#token-hud .control-icon {
+    margin-right: 8px;
+}
+
+#token-hud .col.foundryvtt-dnd5e-wildshape-column-bottom {
+  height: calc(100% + 100px);
+  top: 75px;
+}
+
+.col.foundryvtt-dnd5e-wildshape-column-left {
+	flex-direction: column; 
+	left: -130px;
+	width: 70px;
+	padding-top: 20px;
+}
+.col.foundryvtt-dnd5e-wildshape-column-right {
+	flex-direction: column; 
+	right: -130px;
+	width: 70px;
+	padding-top: 17px;
+}
+.col.foundryvtt-dnd5e-wildshape-column-top {
+	flex-direction: row; 
+	top: -50px;
+	left: -27px;
+	width: 210px;
+	padding-top: 17px;
+}
+.col.foundryvtt-dnd5e-wildshape-column-bottom {
+	flex-direction: row; 
+	top: 200px;
+	left: -25px;
+	width: 210px;
+	padding-top: 5px;
+}
+
+.fas.fa-disabled {
+	color: #555;
+	pointer-events: none;
+}
