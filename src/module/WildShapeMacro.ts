@@ -1,3 +1,4 @@
+import { error } from "../foundryvtt-dnd5e-wildshape"
 import { getCanvas } from "./settings"
 import { WildShapeEffectMacro } from "./WildShapeEffectMacro"
 
@@ -154,6 +155,9 @@ export const WildShapeMacro = function(){
     if (!actor.data.flags.dnd5e?.isPolymorphed) {
         let actorOriginalForm = game.actors.get(currentFormActorId)
         let selectBeasts = '<form><div class="form-group"><label>Choose the beast: </label><select id="wildShapeBeasts">';
+        if(!game.folders.getName(beastsFolder)){
+            error("Can't find folder with name '"+beastsFolder+"'");
+        }
         //@ts-ignore
         game.folders.getName(beastsFolder).content.forEach(function (beast) {
             let optBeast = '<option value="' + beast.data._id + '">' + beast.data.name + '</option>';

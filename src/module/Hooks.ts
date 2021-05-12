@@ -19,9 +19,9 @@ export let readyHooks = async () => {
 			i18n(MODULE_NAME+".holdCtrlOnClick")+
 			'</div></li></ol>');
 	});
-	// game.socket.on("module."+MODULE_NAME, request => {
-	// 	WildShapeHUD.handleSocketRequest(request);
-	// });
+	game.socket.on("module."+MODULE_NAME, request => {
+		WildShapeHUD.handleSocketRequest(request);
+	});
 
   // Register custom sheets (if any)
 
