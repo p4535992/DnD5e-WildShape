@@ -48,15 +48,26 @@
         "styles/foundryvtt-dnd5e-wildshape.css"
     ],
 	  "url": "https://github.com/p4535992/DnD5e-WildShape",
- 	  "manifest": "https://raw.githubusercontent.com/p4535992/DnD5e-WildShape/main/src/module.json",
-	  "download": "https://raw.githubusercontent.com/p4535992/DnD5e-WildShape/main/package/foundryvtt-arms-reach-v1.0.0.zip",
+ 	  "manifest": "https://raw.githubusercontent.com/p4535992/DnD5e-WildShape/master/src/module.json",
+	  "download": "https://raw.githubusercontent.com/p4535992/DnD5e-WildShape/master/package/foundryvtt-dnd5e-wildshape-v1.0.0.zip",
     "minimumCoreVersion": "0.7.9",
     "compatibleCoreVersion": "0.7.9",
-    "changelog": "https://raw.githubusercontent.com/p4535992/DnD5e-WildShape/main/changelog.md",
+    "changelog": "https://raw.githubusercontent.com/p4535992/DnD5e-WildShape/master/changelog.md",
     "bugs": "https://github.com/p4535992/DnD5e-WildShape/issues",
     "allowBugReporter": true,
     "dependencies": [
-
+      {
+        "name": "midi-qol"
+      },
+      {
+        "name": "tokenmagic"
+      },
+      {
+        "name": "dae"
+      },
+      {
+        "name": "furnace"
+      }
     ]
 
 }

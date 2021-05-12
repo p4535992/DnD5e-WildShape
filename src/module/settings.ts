@@ -21,20 +21,20 @@ export const MODULE_NAME = 'foundryvtt-dnd5e-wildshape';
 
 export const registerSettings = function () {
 
-  // game.settings.register(MODULE_NAME, 'position', {
-	// 	name: game.i18n.localize(MODULE_NAME+".position.name"),
-	// 	hint: game.i18n.localize(MODULE_NAME+".position.hint"),
-	// 	scope: "world",
-	// 	config: true,
-	// 	type: String,
-	// 	default: "left",
-	// 	choices: {
-	// 		"left": game.i18n.localize(MODULE_NAME+".position.left"),
-	// 		"right": game.i18n.localize(MODULE_NAME+".position.right"),
-	// 		"top": game.i18n.localize(MODULE_NAME+".position.top"),
-	// 		"bottom": game.i18n.localize(MODULE_NAME+".position.bottom"),
-	// 	}
-	// });
+  game.settings.register(MODULE_NAME, 'position', {
+		name: game.i18n.localize(MODULE_NAME+".position.name"),
+		hint: game.i18n.localize(MODULE_NAME+".position.hint"),
+		scope: "world",
+		config: true,
+		type: String,
+		default: "left",
+		choices: {
+			"left": game.i18n.localize(MODULE_NAME+".position.left"),
+			"right": game.i18n.localize(MODULE_NAME+".position.right"),
+			"top": game.i18n.localize(MODULE_NAME+".position.top"),
+			"bottom": game.i18n.localize(MODULE_NAME+".position.bottom"),
+		}
+	});
 	// game.settings.register(MODULE_NAME, "playerActivation", {
 	// 	name: game.i18n.localize(MODULE_NAME+".playerActivation.name"),
 	// 	hint: game.i18n.localize(MODULE_NAME+".playerActivation.hint"),
