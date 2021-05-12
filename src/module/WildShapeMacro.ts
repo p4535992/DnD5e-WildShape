@@ -1,5 +1,5 @@
 import { error } from "../foundryvtt-dnd5e-wildshape"
-import { getCanvas } from "./settings"
+import { getCanvas, MODULE_NAME } from "./settings"
 import { WildShapeEffectMacro } from "./WildShapeEffectMacro"
 
 // Name of the folder in which the beasts are located
@@ -8,7 +8,7 @@ export let beastsFolder = "Beasts"
 // Name of your WildShape Effect
 export let wildShapeEffectName = "WildShape Effect"
 
-export const WildShapeMacro = function(){
+export const WildShapeMacro = async function(){
     // Declare the target
     let target = getCanvas().tokens.controlled[0]
 
@@ -32,7 +32,7 @@ export const WildShapeMacro = function(){
         let actorNewShapeName = actorOriginalForm.data.name + ' (' + actorNewForm.data.name + ')'
 
         // Declare the polymorph function
-        let actorPolymorphism = async function (actor) {
+        let actorPolymorphism = async function () {
             // For actorNewForm, the ratio's Token scale should be the same of the original form
             //@ts-ignore
             actor.transformInto(actorNewForm, {
@@ -100,7 +100,7 @@ export const WildShapeMacro = function(){
                 //@ts-ignore
                 await TokenMagic.addUpdateFilters(target, paramsStart)
                 await delay(1100)
-                await actorPolymorphism(target)
+                await actorPolymorphism()
                 await Hooks.once("sightRefresh", async function () {
                     let actorNewShape:Actor = game.actors.getName(actorNewShapeName)
                     //await actorNewShape.createEmbeddedEntity("ActiveEffect", applyWildShapeEffect)
@@ -171,21 +171,38 @@ export const WildShapeMacro = function(){
                 yes: {
                     icon: '<i class="fas fa-paw"></i>',
                     label: "Roar!",
-                    callback: () => {
+                    callback: async () => {
                         // Get the New Form Actor ID
                         let actorNewFormId = String($('#wildShapeBeasts').find(":selected").val());
                         wildShapeTransform(actorOriginalForm, actorNewFormId);
+                        // TODO MAKE THIS A BETTER CODE
+                        await actor.update({ "flags.dnd5e.isPolymorphed": true });
+                        await actor.update({ "data.flags.foundryvtt-dnd5e-wildshape.actorOriginalForm": actorOriginalForm });
+                        await actor.update({ "data.flags.foundryvtt-dnd5e-wildshape.actorNewFormId": actorNewFormId });
+                        // await actor.update({ "data.flags.foundryvtt-dnd5e-wildshape.tokenOriginal.width": actor.data.token.width});
+                        // await actor.update({ "data.flags.foundryvtt-dnd5e-wildshape.tokenOriginal.height": actor.data.token.height});
                     }
                 }
             },
             default: ''
         }).render(true);
         // Else, launch the WildShape transformation function
-    } else {
-        //@ts-ignore
-        let actorOriginalId = game.actors.get(currentFormActorId)._data.flags.dnd5e.originalActor
-        let actorOriginalForm = game.actors.get(actorOriginalId)
-        let actorNewFormId = _token.actor.data._id
-        wildShapeTransform(actorOriginalForm, actorNewFormId);
+    } 
+    else {
+        let actorOriginalForm = game.actors.get(currentFormActorId);
+        // TODO MAKE THIS A BETTER CODE
+        let actorOriginalFormTmp = getProperty(actor, "data.flags.foundryvtt-dnd5e-wildshape.actorOriginalForm");
+        let actorNewFormIdTmp = getProperty(actor, "data.flags.foundryvtt-dnd5e-wildshape.actorNewFormId");
+        // let tokenOriginalTmpWidth = getProperty(actor, "data.flags.foundryvtt-dnd5e-wildshape.tokenOriginal.width");
+        // let tokenOriginalTmpHeight = getProperty(actor, "data.flags.foundryvtt-dnd5e-wildshape.tokenOriginal.height");
+        await actor.update({ "flags.dnd5e.isPolymorphed": false });
+        await actor.update({ "data.flags.foundryvtt-dnd5e-wildshape.actorOriginalForm": null });
+        await actor.update({ "data.flags.foundryvtt-dnd5e-wildshape.actorNewFormId": null });
+        
+        // PATCH BUG FIX HEIGHT AND WIDTH
+        let actorNewForm = game.actors.get(actorNewFormIdTmp);
+        await actorNewForm.update({ "data.token.width": actorOriginalFormTmp.data.token.width });
+        await actorNewForm.update({ "data.token.height": actorOriginalFormTmp.data.token.height });
+        wildShapeTransform(actorOriginalFormTmp,actorNewFormIdTmp);
     }
 }
