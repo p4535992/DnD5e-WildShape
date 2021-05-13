@@ -7,7 +7,7 @@ export const COMPENDIUM_PACK_MACRO = MODULE_NAME + ".Dnd5e Wildshape Pack Macro"
 
 
 // Name of the folder in which the beasts are located
-export let beastsFolder = "Beasts";
+// export let beastsFolder = "Beasts";
 
 // Name of your WildShape Effect
 export let wildShapeEffectName = "WildShape Effect";
@@ -85,5 +85,14 @@ export const registerSettings = function () {
 		config: true,
 		default: false,
 		type: Boolean
+	});
+
+  game.settings.register(MODULE_NAME, 'beastsFolder', {
+		name: game.i18n.localize(MODULE_NAME+".beastsFolder.name"),
+		hint: game.i18n.localize(MODULE_NAME+".beastsFolder.hint"),
+		scope: "client",
+		config: true,
+		type: String,
+		default: "Beasts"
 	});
 }

@@ -14,5 +14,7 @@
   "foundryvtt-dnd5e-wildshape.dmAsPlayer.name": "DM Checks/Uses as Player",
   "foundryvtt-dnd5e-wildshape.dmAsPlayer.hint": "If set, the DM checks the availability of light sources fot the selected player and uses his/her inventory.",
   "foundryvtt-dnd5e-wildshape.forceUseMacro.name": "Force use macro WildShape effect",
-  "foundryvtt-dnd5e-wildshape.forceUseMacro.hint": "If true you use the macro 'Wild Shape effect' instead che normal code, YOU MUST CONFIGURE MIDI"
+  "foundryvtt-dnd5e-wildshape.forceUseMacro.hint": "If true you use the macro 'Wild Shape effect' instead che normal code, YOU MUST CONFIGURE MIDI",
+  "foundryvtt-dnd5e-wildshape.beastsFolder.name": "Set up the folder with your transformations",
+  "foundryvtt-dnd5e-wildshape.beastsFolder.hint": "When call the Wild Shape function we load all the beats on this folder, by default is 'Beasts'"
 }
