@@ -1,6 +1,7 @@
 import { error } from "../foundryvtt-dnd5e-wildshape"
-import { getCanvas, MODULE_NAME, wildShapeEffectName } from "./settings"
+import { getCanvas, MODULE_NAME, wildShapeEffectName, wildShapeEffectNameMacro } from "./settings"
 import { WildShapeEffectMacro } from "./WildShapeEffectMacro"
+import { handleEffectToggleEvent } from "./WildShapeHelperEffect"
 
 export const WildShapeMacro = async function(){
     // Declare the target
@@ -41,22 +42,22 @@ export const WildShapeMacro = async function(){
             })
         }
 
-        // Declare the WildShape Effect
-        let applyWildShapeEffect:ActiveEffect.Data = {
-            _id: actor.id,
-            label: wildShapeEffectName,
-            icon: "systems/dnd5e/icons/skills/green_13.jpg",
-            changes: [{
-                key: "macro.execute",
-                mode: ACTIVE_EFFECT_MODES.MULTIPLY,//1,
-                value: `"WildShape Effect Macro"` + `"${currentFormActorId}"` + `"${actorOriginalFormImagePath}"` + `"${actorNewFormId}"` + `"${actorNewShapeName}"`,
-                priority: 20
-            }],
-            duration: {
-                "seconds": 7200,
-            },
-            flags:{}
-        }
+        // [REMOVED] Declare the WildShape Effect
+        // let applyWildShapeEffect:ActiveEffect.Data = {
+        //     _id: actor.id,
+        //     label: wildShapeEffectName,
+        //     icon: "systems/dnd5e/icons/skills/green_13.jpg",
+        //     changes: [{
+        //         key: "macro.execute",
+        //         mode: ACTIVE_EFFECT_MODES.MULTIPLY,//1,
+        //         value: `"${wildShapeEffectNameMacro}"` + `"${currentFormActorId}"` + `"${actorOriginalFormImagePath}"` + `"${actorNewFormId}"` + `"${actorNewShapeName}"`,
+        //         priority: 20
+        //     }],
+        //     duration: {
+        //         "seconds": 7200,
+        //     },
+        //     flags:{}
+        // }
 
         // Declare the delay variable to adjust with animation
         const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -102,16 +103,12 @@ export const WildShapeMacro = async function(){
                 await actorPolymorphism()
                 await Hooks.once("sightRefresh", async function () {
                     let actorNewShape:Actor = game.actors.getName(actorNewShapeName);
-                    // IMPORTANT here you can decide if use the macro or the code
-                    // the result should be the same, but you can avoid to
-                    // set up the item and midi-qol on the actor with this code solution
-                    if(<boolean>game.settings.get(MODULE_NAME,"forceUseMacro")){
-                      // REMEMBER
-                      await actorNewShape.createEmbeddedEntity("ActiveEffect", applyWildShapeEffect);
-                    }{
-                      await actorNewShape.createEmbeddedEntity("ActiveEffect", WildShapeEffectMacro("WildShape Effect Macro",currentFormActorId,actorOriginalFormImagePath,actorNewFormId,actorNewShapeName));
-                    }
+                    //await actorNewShape.createEmbeddedEntity("ActiveEffect", WildShapeEffectMacro(wildShapeEffectNameMacro,currentFormActorId,actorOriginalFormImagePath,actorNewFormId,actorNewShapeName));
+                    let effect = WildShapeEffectMacro(wildShapeEffectNameMacro,currentFormActorId,actorOriginalFormImagePath,actorNewFormId,actorNewShapeName)
+                    handleEffectToggleEvent(token,effect);
                 });
+                // let actorNewShape:Actor = game.actors.getName(actorNewShapeName);
+                // await actorNewShape.createEmbeddedEntity("ActiveEffect", WildShapeEffectMacro(wildShapeEffectNameMacro,currentFormActorId,actorOriginalFormImagePath,actorNewFormId,actorNewShapeName));
             }
             startAnimation(target)
             // If actor is polymorphed, launch backAnimation function
@@ -155,7 +152,7 @@ export const WildShapeMacro = async function(){
             backAnimation(target)
         }
 
-        // TODO WE NEED THIS ???
+        // Pacth bug we lose correct width and height with diefferent size tokens
         target.update({
           "width": actorOriginalFormWidth,
           "height": actorOriginalFormHeight
@@ -213,10 +210,10 @@ export const WildShapeMacro = async function(){
         await actor.update({ "data.flags.foundryvtt-dnd5e-wildshape.actorOriginalForm": null });
         await actor.update({ "data.flags.foundryvtt-dnd5e-wildshape.actorNewFormId": null });
 
-        // PATCH BUG FIX HEIGHT AND WIDTH
+        // PATCH BUG FIX HEIGHT AND WIDTH BETWEEN TOKEN WITH DIFFERENT SIZE
         let actorNewForm = game.actors.get(actorNewFormIdTmp);
-        await actorNewForm.update({ "data.token.width": actorOriginalFormTmp.data.token.width });
-        await actorNewForm.update({ "data.token.height": actorOriginalFormTmp.data.token.height });
+        // await actorNewForm.update({ "data.token.width": actorOriginalFormTmp.data.token.width });
+        // await actorNewForm.update({ "data.token.height": actorOriginalFormTmp.data.token.height });
         wildShapeTransform(actorOriginalFormTmp,actorNewFormIdTmp);
     }
 }

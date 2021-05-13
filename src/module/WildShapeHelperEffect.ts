@@ -1,5 +1,5 @@
 import { error } from "../foundryvtt-dnd5e-wildshape";
-import { COMPENDIUM_WILDSHAPE_SRD_FEATURES, getCanvas, wildShapeEffectName } from "./settings";
+import { COMPENDIUM_WILDSHAPE_SRD_FEATURES, getCanvas, wildShapeEffectName, wildShapeFeatureName } from "./settings";
 
 export const getEffectForActor = function(actor:Actor, toggleEvent) {
   let togglableEffect = actor.effects.find((effect:ActiveEffect) => effect.data.label == toggleEvent.target.dataset.effectName);
@@ -10,13 +10,15 @@ export const getEffectForActor = function(actor:Actor, toggleEvent) {
   return effect;
 }
 
-export const handleEffectToggleEvent = async function(toggleEvent) {
+export const handleEffectToggleEvent = async function(token:Token,toggledEffect) {
     const updates = [];
-    for (let token of getCanvas().tokens.controlled ) {
+    // for (let token of getCanvas().tokens.controlled ) {
         const actor = token.actor;
     //for (let actor of getCanvas().tokens.controlled.map(token => token.actor)) {
-        let toggledEffect = await getEffectForActor(actor, toggleEvent).then(effect => {return effect;});
-        if (!toggledEffect) { continue; }
+        // let toggledEffect = await getEffectForActor(actor, toggleEvent).then(effect => {return effect;});
+        // if (!toggledEffect) { 
+            
+        // }
         // if(toggledEffect.effects){
         //     toggledEffect = toggledEffect.effects.find(effect => effect.label == toggledEffect.label);
         // }
@@ -26,7 +28,7 @@ export const handleEffectToggleEvent = async function(toggleEvent) {
         }else{
             actor.createEmbeddedEntity("ActiveEffect", toggledEffect);
         }
-    }
+    // }
     if(updates.length>0){
         // use canvase.tokens.updateMany instead of token.update to prevent race conditions
         // (meaning not all updates will be persisted and might only show locally)
@@ -45,7 +47,7 @@ export const retrieveEffectWildShapeFromCompendium = async function() {
   //         {key: "data.attributes.ac.value", mode: 4, value: 16, priority: 60},
   //       ],
   // };
-  let effect = await retrieveEffectFromCompendium(COMPENDIUM_WILDSHAPE_SRD_FEATURES,wildShapeEffectName)
+  let effect = await retrieveEffectFromCompendium(COMPENDIUM_WILDSHAPE_SRD_FEATURES,wildShapeFeatureName)
   .then(effect => {
       return effect;
   });
@@ -181,3 +183,4 @@ export const ACTIVE_EFFECT_MODES = {
   UPGRADE: 4,
   OVERRIDE: 5
 };
+

@@ -26,35 +26,36 @@ export class WildShapeHUD {
 						await app.object.setFlag(MODULE_NAME, "statusWildShape", false);
 						tbuttonWildShape1.removeClass("active");
 
-            // Wildshape is inactive, enable the relevant wildshape sources according to parameters
-            enableRelevantButtons();
+					// Wildshape is inactive, enable the relevant wildshape sources according to parameters
+					
+					enableRelevantButtons();
 
-            // Restore the initial wildshape source
+					// Restore the initial wildshape source
 
-            WildShapeMacro();
+					WildShapeMacro();
 
-          } else {
+				} else {
 
-            // The token does not have the wildshape spell on
-            log("Clicked on the wildshape button when the shape is off.");
-            statusWildShape1 = true;
-            await app.object.setFlag(MODULE_NAME, "statusWildShape", true);
-            tbuttonWildShape1.addClass("active");
+					// The token does not have the wildshape spell on
+					log("Clicked on the wildshape button when the shape is off.");
+					statusWildShape1 = true;
+					await app.object.setFlag(MODULE_NAME, "statusWildShape", true);
+					tbuttonWildShape1.addClass("active");
 
-            // Wildshape is active, disable the other wildshape sources
-            WildShapeMacro();
+					// Wildshape is active, disable the other wildshape sources
+					WildShapeMacro();
 
-          }
-        }else{
-            error("tbutton is not equal to any wildshape");
-            // There is no torch wildshape to consume, signal and disable the button
-            // ChatMessage.create({
-            //     user: game.user._id,
-            //     speaker: game.actors.get(data.actorId),
-            //     content: "No WildShape to consume !"
-            // });
-            disableWildShapeButton(tbuttonWildShape1);
-        }
+				}
+				}else{
+					error("tbutton is not equal to any wildshape");
+					// There is no torch wildshape to consume, signal and disable the button
+					// ChatMessage.create({
+					//     user: game.user._id,
+					//     speaker: game.actors.get(data.actorId),
+					//     content: "No WildShape to consume !"
+					// });
+					disableWildShapeButton(tbuttonWildShape1);
+				}
 			});
 		}
 
@@ -69,12 +70,21 @@ export class WildShapeHUD {
 		function enableRelevantButtons() {
 
 			// Stores if checks need to be made to enable buttons
-      // enableWildShapeButton(tbuttonWildShape1);
-      if (hasItemInInventory(wildShapeFeatureName)){
-        enableWildShapeButton(tbuttonWildShape1);
-      }else{
-        disableWildShapeButton(tbuttonWildShape1);
-      }
+			//enableWildShapeButton(tbuttonWildShape1);
+
+			// Only GM can metamorph (for now)
+			if(game.user.isGM){
+				enableWildShapeButton(tbuttonWildShape1);
+			}else{
+				disableWildShapeButton(tbuttonWildShape1);
+			}
+
+			// seem not to work disable for now
+			// if (hasItemInInventory(wildShapeFeatureName)){
+			// 	enableWildShapeButton(tbuttonWildShape1);
+			// }else{
+			// 	disableWildShapeButton(tbuttonWildShape1);
+			// }
 
             /*
 			let noCheck = game.system.id !== 'dnd5e';
@@ -100,7 +110,7 @@ export class WildShapeHUD {
 		}
 
 		// Define all three buttons
-		let tbuttonWildShape1   = $(`<div class="control-icon foundryvtt-dnd5e-wildshape" title="Toggle WildShape Spell 1"><i class="fas fa-paw-claws"></i></div>`);
+		let tbuttonWildShape1   = $(`<div class="control-icon foundryvtt-dnd5e-wildshape" title="Toggle WildShape Spell 1"><i class="fas fa-paw"></i></div>`);
 		// let tbuttonWildShape2 = $(`<div class="control-icon foundryvtt-dnd5e-wildshape" title="Toggle WildShape Spell 2"><i class="fas fa-lightbulb"></i></div>`);
 		// let tbuttonWildShape3   = $(`<div class="control-icon foundryvtt-dnd5e-wildshape" title="Toggle WildShape Spell 3"><i class="fas fa-fire"></i></div>`);
 
