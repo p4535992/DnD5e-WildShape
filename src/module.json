@@ -38,6 +38,9 @@
           "path": "lang/en.json"
       }
     ],
+    "systems": [
+      "dnd5e"
+    ],
     "scripts": [
 
     ],
@@ -46,6 +49,16 @@
     ],
     "styles": [
         "styles/foundryvtt-dnd5e-wildshape.css"
+    ],
+    "packs": [
+      {
+        "name" : "Dnd5e Wildshape Pack Macro",
+        "label" : "Dnd5e Wildshape Pack Macro",
+        "path" : "packs/foundryvtt-dnd5e-wildshape-macro.db",
+        "entity" : "Macro",
+        "module" : "foundryvtt-dnd5e-wildshape",
+        "system": "dnd5e"
+      }
     ],
 	  "url": "https://github.com/p4535992/DnD5e-WildShape",
  	  "manifest": "https://raw.githubusercontent.com/p4535992/DnD5e-WildShape/master/src/module.json",

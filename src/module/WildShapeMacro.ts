@@ -45,19 +45,21 @@ export const WildShapeMacro = async function(){
         }
 
         // Declare the WildShape Effect
-        // let applyWildShapeEffect = {
-        //     label: wildShapeEffectName,
-        //     icon: "systems/dnd5e/icons/skills/green_13.jpg",
-        //     changes: [{
-        //         "key": "macro.execute",
-        //         "mode": 1,
-        //         "value": `"WildShape Effect Macro"` + `"${currentFormActorId}"` + `"${actorOriginalFormImagePath}"` + `"${actorNewFormId}"` + `"${actorNewShapeName}"`,
-        //         "priority": "20"
-        //     }],
-        //     duration: {
-        //         "seconds": 7200,
-        //     }
-        // }
+        let applyWildShapeEffect:ActiveEffect.Data = {
+            _id: actor.id,
+            label: wildShapeEffectName,
+            icon: "systems/dnd5e/icons/skills/green_13.jpg",
+            changes: [{
+                key: "macro.execute",
+                mode: ACTIVE_EFFECT_MODES.MULTIPLY,//1,
+                value: `"WildShape Effect Macro"` + `"${currentFormActorId}"` + `"${actorOriginalFormImagePath}"` + `"${actorNewFormId}"` + `"${actorNewShapeName}"`,
+                priority: 20
+            }],
+            duration: {
+                "seconds": 7200,
+            },
+            flags:{}
+        }
 
         // Declare the delay variable to adjust with animation
         const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -102,9 +104,16 @@ export const WildShapeMacro = async function(){
                 await delay(1100)
                 await actorPolymorphism()
                 await Hooks.once("sightRefresh", async function () {
-                    let actorNewShape:Actor = game.actors.getName(actorNewShapeName)
-                    //await actorNewShape.createEmbeddedEntity("ActiveEffect", applyWildShapeEffect)
-                    await actorNewShape.createEmbeddedEntity("ActiveEffect", WildShapeEffectMacro(target,"WildShape Effect Macro",currentFormActorId,actorOriginalFormImagePath,actorNewFormId,actorNewShapeName));
+                    let actorNewShape:Actor = game.actors.getName(actorNewShapeName);
+                    // IMPORTANT here you can decide if use the macro or the code
+                    // the result should be the same, but you can avoid to
+                    // set up the item on the actor with the code solution
+                    if(<boolean>game.settings.get(MODULE_NAME,"forceUseMacro")){
+                      // REMEMBER
+                      await actorNewShape.createEmbeddedEntity("ActiveEffect", applyWildShapeEffect);
+                    }{
+                      await actorNewShape.createEmbeddedEntity("ActiveEffect", WildShapeEffectMacro("WildShape Effect Macro",currentFormActorId,actorOriginalFormImagePath,actorNewFormId,actorNewShapeName));
+                    }
                 });
             }
             startAnimation(target)
@@ -187,7 +196,7 @@ export const WildShapeMacro = async function(){
             default: ''
         }).render(true);
         // Else, launch the WildShape transformation function
-    } 
+    }
     else {
         let actorOriginalForm = game.actors.get(currentFormActorId);
         // TODO MAKE THIS A BETTER CODE
@@ -198,7 +207,7 @@ export const WildShapeMacro = async function(){
         await actor.update({ "flags.dnd5e.isPolymorphed": false });
         await actor.update({ "data.flags.foundryvtt-dnd5e-wildshape.actorOriginalForm": null });
         await actor.update({ "data.flags.foundryvtt-dnd5e-wildshape.actorNewFormId": null });
-        
+
         // PATCH BUG FIX HEIGHT AND WIDTH
         let actorNewForm = game.actors.get(actorNewFormIdTmp);
         await actorNewForm.update({ "data.token.width": actorOriginalFormTmp.data.token.width });

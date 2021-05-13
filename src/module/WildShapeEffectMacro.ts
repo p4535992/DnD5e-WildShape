@@ -2,14 +2,13 @@ import { getCanvas } from "./settings"
 
 
 export const WildShapeEffectMacro = function(
-    target:Token,
-    shapeOnOff:string, 
-    actorOriginalFormId:string, 
-    actorOriginalFormImagePath:string, 
+    shapeOnOff:string,
+    actorOriginalFormId:string,
+    actorOriginalFormImagePath:string,
     actorNewFormId:string,
     actorNewShapeName:string):ActiveEffect.Data{
 
-    //let target = getCanvas().tokens.controlled[0]
+    let target = getCanvas().tokens.controlled[0]
     //let actorOriginalFormId = args[1]
     let actorOriginalForm = game.actors.get(actorOriginalFormId)
     let actorOriginalFormName = actorOriginalForm.data.name
@@ -19,14 +18,16 @@ export const WildShapeEffectMacro = function(
     //let actorNewShapeName = args[4]
     let actor = game.actors.get(actorOriginalFormId);
     // TODO WE NEED THIS ????
-    // let transferDAEEffects = async function (actor) {
-    //     //@ts-ignore
-    //     if (actor.data.flags.dnd5e?.isPolymorphed) {
-    //         let actorNewShape:DeepPartial<Data> = game.actors.getName(actorNewShapeName);
-    //         let actorNewShapeEffectsData = actorNewShape.effects.map(ef => ef.data);
-    //         await actorOriginalForm.createEmbeddedEntity("ActiveEffect", actorNewShapeEffectsData);
-    //     }
-    // }
+    let transferDAEEffects = async function (actor) {
+        //@ts-ignore
+        if (actor.data.flags.dnd5e?.isPolymorphed) {
+            let actorNewShape:DeepPartial<Data> = game.actors.getName(actorNewShapeName);
+            let actorNewShapeEffectsData = actorNewShape.effects.map(ef => ef.data);
+            await actorOriginalForm.createEmbeddedEntity("ActiveEffect", actorNewShapeEffectsData);
+        }
+    }
+    // TODO WE NEED THIS ????
+    transferDAEEffects(actor);
     const delay = ms => new Promise(resolve => setTimeout(resolve, ms))
     //@ts-ignore
     if (actor.data.flags.dnd5e?.isPolymorphed && shapeOnOff === "off") {
