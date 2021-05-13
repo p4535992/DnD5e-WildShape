@@ -100,7 +100,7 @@ export class WildShapeHUD {
 		}
 
 		// Define all three buttons
-		let tbuttonWildShape1   = $(`<div class="control-icon foundryvtt-dnd5e-wildshape" title="Toggle WildShape Spell 1"><i class="fas fa-sun"></i></div>`);
+		let tbuttonWildShape1   = $(`<div class="control-icon foundryvtt-dnd5e-wildshape" title="Toggle WildShape Spell 1"><i class="fas fa-paw-claws"></i></div>`);
 		// let tbuttonWildShape2 = $(`<div class="control-icon foundryvtt-dnd5e-wildshape" title="Toggle WildShape Spell 2"><i class="fas fa-lightbulb"></i></div>`);
 		// let tbuttonWildShape3   = $(`<div class="control-icon foundryvtt-dnd5e-wildshape" title="Toggle WildShape Spell 3"><i class="fas fa-fire"></i></div>`);
 
