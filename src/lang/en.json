@@ -13,6 +13,6 @@
   "foundryvtt-dnd5e-wildshape.consumeItem.hint": "Actually removes one item from the inventory when the light is lit.",
   "foundryvtt-dnd5e-wildshape.dmAsPlayer.name": "DM Checks/Uses as Player",
   "foundryvtt-dnd5e-wildshape.dmAsPlayer.hint": "If set, the DM checks the availability of light sources fot the selected player and uses his/her inventory.",
-  "foundryvtt-dnd5e-wildshape.forceUseMacro.name": "Force use macro",
-  "foundryvtt-dnd5e-wildshape.forceUseMacro.hint": "If true you use the macro instead che normal code"
+  "foundryvtt-dnd5e-wildshape.forceUseMacro.name": "Force use macro WildShape effect",
+  "foundryvtt-dnd5e-wildshape.forceUseMacro.hint": "If true you use the macro 'Wild Shape effect' instead che normal code, YOU MUST CONFIGURE MIDI"
 }

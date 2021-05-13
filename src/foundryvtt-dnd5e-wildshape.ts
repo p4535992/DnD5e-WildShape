@@ -79,6 +79,26 @@ Hooks.once('ready', () => {
 	// 	 return;
 	// }
 
+  if (!game.modules.get("furnace")?.active && game.user.isGM){
+		 ui.notifications.error(`The '${MODULE_NAME}' module requires to install and activate the 'furnace' module.`);
+		 return;
+	}
+
+  if (!game.modules.get("dae")?.active && game.user.isGM){
+    ui.notifications.error(`The '${MODULE_NAME}' module requires to install and activate the 'dae' module.`);
+    return;
+  }
+
+  if (!game.modules.get("tokenmagic")?.active && game.user.isGM){
+    ui.notifications.error(`The '${MODULE_NAME}' module requires to install and activate the 'tokenmagic' module.`);
+    return;
+  }
+
+  if (!game.modules.get("midi-qol")?.active && game.user.isGM){
+    ui.notifications.error(`The '${MODULE_NAME}' module requires to install and activate the 'midi-qol' module.`);
+    return;
+  }
+
 	readyHooks();
 });
 

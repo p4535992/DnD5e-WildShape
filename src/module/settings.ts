@@ -3,7 +3,17 @@
 export const MODULE_NAME = 'foundryvtt-dnd5e-wildshape';
 
 export const COMPENDIUM_WILDSHAPE_SRD_FEATURES = 'Class Features';
-export const COMPENDIUM_PACK_MACRO = MODULE_NAME + ".Dnd5e Wildshape Pack Macro"
+export const COMPENDIUM_PACK_MACRO = MODULE_NAME + ".Dnd5e Wildshape Pack Macro";
+
+
+// Name of the folder in which the beasts are located
+export let beastsFolder = "Beasts";
+
+// Name of your WildShape Effect
+export let wildShapeEffectName = "WildShape Effect";
+
+// Name of the fetaure on the SRD compendium
+export let wildShapeFeatureName = "";
 
 /**
  * Because typescript doesn't know when in the lifecycle of foundry your code runs, we have to assume that the
@@ -71,7 +81,7 @@ export const registerSettings = function () {
   game.settings.register(MODULE_NAME, "forceUseMacro", {
 		name: game.i18n.localize(MODULE_NAME+".forceUseMacro.name"),
 		hint: game.i18n.localize(MODULE_NAME+".forceUseMacro.hint"),
-		scope: "client",
+		scope: "world",
 		config: true,
 		default: false,
 		type: Boolean

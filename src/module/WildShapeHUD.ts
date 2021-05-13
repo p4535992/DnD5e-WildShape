@@ -1,5 +1,5 @@
 import { error, log } from "../foundryvtt-dnd5e-wildshape";
-import { getCanvas, MODULE_NAME } from "./settings";
+import { getCanvas, MODULE_NAME, wildShapeFeatureName } from "./settings";
 import { WildShapeMacro } from "./WildShapeMacro";
 
 export class WildShapeHUD {
@@ -26,32 +26,35 @@ export class WildShapeHUD {
 						await app.object.setFlag(MODULE_NAME, "statusWildShape", false);
 						tbuttonWildShape1.removeClass("active");
 
-                        // Wildshape is inactive, enable the relevant wildshape sources according to parameters
-                        enableRelevantButtons();
-                        // Restore the initial wildshape source
-                        WildShapeMacro();
+            // Wildshape is inactive, enable the relevant wildshape sources according to parameters
+            enableRelevantButtons();
 
-					} else {
+            // Restore the initial wildshape source
 
-						// The token does not have the wildshape spell on
-						log("Clicked on the wildshape button when the shape is off.");
-						statusWildShape1 = true;
-						await app.object.setFlag(MODULE_NAME, "statusWildShape", true);
-						tbuttonWildShape1.addClass("active");
+            WildShapeMacro();
 
-                        // Wildshape is active, disable the other wildshape sources
-						WildShapeMacro();
-                    }
-				}else{
-                    error("tbutton is not equal to any wildshape");
-                    // There is no torch wildshape to consume, signal and disable the button
-                    // ChatMessage.create({
-                    //     user: game.user._id,
-                    //     speaker: game.actors.get(data.actorId),
-                    //     content: "No WildShape to consume !"
-                    // });
-                    // disableWildShapeButton(tbuttonTo);
-                }
+          } else {
+
+            // The token does not have the wildshape spell on
+            log("Clicked on the wildshape button when the shape is off.");
+            statusWildShape1 = true;
+            await app.object.setFlag(MODULE_NAME, "statusWildShape", true);
+            tbuttonWildShape1.addClass("active");
+
+            // Wildshape is active, disable the other wildshape sources
+            WildShapeMacro();
+
+          }
+        }else{
+            error("tbutton is not equal to any wildshape");
+            // There is no torch wildshape to consume, signal and disable the button
+            // ChatMessage.create({
+            //     user: game.user._id,
+            //     speaker: game.actors.get(data.actorId),
+            //     content: "No WildShape to consume !"
+            // });
+            disableWildShapeButton(tbuttonWildShape1);
+        }
 			});
 		}
 
@@ -66,10 +69,13 @@ export class WildShapeHUD {
 		function enableRelevantButtons() {
 
 			// Stores if checks need to be made to enable buttons
-            enableWildShapeButton(tbuttonWildShape1);
-            // TODO
-            // TODO ADD SOME CHECK FOR WILD SHAPE ????
-            // TODO
+      // enableWildShapeButton(tbuttonWildShape1);
+      if (hasItemInInventory(wildShapeFeatureName)){
+        enableWildShapeButton(tbuttonWildShape1);
+      }else{
+        disableWildShapeButton(tbuttonWildShape1);
+      }
+
             /*
 			let noCheck = game.system.id !== 'dnd5e';
 			if (!noCheck){
@@ -199,21 +205,22 @@ export class WildShapeHUD {
 		// 	return hasLight;
 		// }
 
-		// // Returns true if the character has a specific item in his inventory
-		// // This also returns true if the game system is not D&D 5e...
-		// function hasItemInInventory(itemToCheck) {
-		// 	let actor = game.actors.get(data.actorId);
-		// 	if (actor === undefined)
-		// 		return false;
-		// 	let hasItem = false;
-		// 	actor.data.items.forEach(item => {
-		// 		if (item.name.toLowerCase() === itemToCheck.toLowerCase()) {
-		// 			if (item.data.quantity > 0)
-		// 				hasItem = true;
-		// 		}
-		// 	});
-		// 	return hasItem;
-		// }
+		// Returns true if the character has a specific item in his inventory
+		// This also returns true if the game system is not D&D 5e...
+		function hasItemInInventory(itemToCheck:string) {
+			let actor = game.actors.get(data.actorId);
+			if (actor === undefined){
+				return false;
+      }
+			let hasItem = false;
+			actor.data.items.forEach(item => {
+				if (item.name.toLowerCase() === itemToCheck.toLowerCase()) {
+					if (item.data.quantity > 0)
+						hasItem = true;
+				}
+			});
+			return hasItem;
+		}
 
 		// // Returns true if either the character does not need to consume an item
 		// // or if he can indeed consume it (and it is actually consumed)

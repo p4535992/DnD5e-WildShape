@@ -1,6 +1,5 @@
 import { error } from "../foundryvtt-dnd5e-wildshape";
-import { COMPENDIUM_WILDSHAPE_SRD_FEATURES, getCanvas } from "./settings";
-import { wildShapeEffectName } from "./WildShapeMacro";
+import { COMPENDIUM_WILDSHAPE_SRD_FEATURES, getCanvas, wildShapeEffectName } from "./settings";
 
 export const getEffectForActor = function(actor:Actor, toggleEvent) {
   let togglableEffect = actor.effects.find((effect:ActiveEffect) => effect.data.label == toggleEvent.target.dataset.effectName);

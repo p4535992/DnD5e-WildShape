@@ -1,12 +1,6 @@
 import { error } from "../foundryvtt-dnd5e-wildshape"
-import { getCanvas, MODULE_NAME } from "./settings"
+import { beastsFolder, getCanvas, MODULE_NAME, wildShapeEffectName } from "./settings"
 import { WildShapeEffectMacro } from "./WildShapeEffectMacro"
-
-// Name of the folder in which the beasts are located
-export let beastsFolder = "Beasts"
-
-// Name of your WildShape Effect
-export let wildShapeEffectName = "WildShape Effect"
 
 export const WildShapeMacro = async function(){
     // Declare the target
@@ -20,6 +14,9 @@ export const WildShapeMacro = async function(){
 
         // Image's Token associated with the original actor form
         let actorOriginalFormImagePath = actorOriginalForm.data.token.img
+
+        let actorOriginalFormWidth = actorOriginalForm.data.token.width;
+        let actorOriginalFormHeight = actorOriginalForm.data.token.height;
 
         // Get the New Form Actor
         let actorNewForm:Actor = game.actors.get(actorNewFormId)
@@ -107,7 +104,7 @@ export const WildShapeMacro = async function(){
                     let actorNewShape:Actor = game.actors.getName(actorNewShapeName);
                     // IMPORTANT here you can decide if use the macro or the code
                     // the result should be the same, but you can avoid to
-                    // set up the item on the actor with the code solution
+                    // set up the item and midi-qol on the actor with this code solution
                     if(<boolean>game.settings.get(MODULE_NAME,"forceUseMacro")){
                       // REMEMBER
                       await actorNewShape.createEmbeddedEntity("ActiveEffect", applyWildShapeEffect);
@@ -145,7 +142,7 @@ export const WildShapeMacro = async function(){
             target.update({
                 "width": actorOriginalForm.data.token.width,
                 "height": actorOriginalForm.data.token.height
-            })
+            });
             async function backAnimation(token) {
                 await token.TMFXdeleteFilters("polymorphToOriginalForm")
                 await token.TMFXhasFilterId("polymorphToOriginalForm")
@@ -157,6 +154,13 @@ export const WildShapeMacro = async function(){
             }
             backAnimation(target)
         }
+
+        // TODO WE NEED THIS ???
+        target.update({
+          "width": actorOriginalFormWidth,
+          "height": actorOriginalFormHeight
+        });
+
     }
 
     // If not already polymorphed, display the dialog box
