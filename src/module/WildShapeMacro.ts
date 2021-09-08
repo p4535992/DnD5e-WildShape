@@ -5,8 +5,8 @@ import { handleEffectToggleEvent } from "./WildShapeHelperEffect"
 
 export const WildShapeMacro = async function(){
     // Declare the target
-    let target = getCanvas().tokens.controlled[0]
-
+    let target = getCanvas().tokens.controlled[0];
+    let token = target
     // Get the ID of your the actual target (current Actor Form)
     let currentFormActorId = target.actor.data._id
     let actor:Actor = game.actors.get(currentFormActorId);

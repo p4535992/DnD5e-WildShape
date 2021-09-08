@@ -2,6 +2,8 @@
 
 # DnD5e-WildShape
 
+## THIS MODULE IS ABBNDONED
+
 <!--- Downloads @ Latest Badge -->
 <!--- replace <user>/<repo> with your username/repository -->
 <!--- [Latest Release Download Count](https://img.shields.io/github/downloads/MisterHims/DnD5e-WildShape/latest/module.zip) -->
